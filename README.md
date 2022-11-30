@@ -1,2 +1,7 @@
-# game_space_invaders
-Project cuối kỳ môn Lập trình năng cao
+# Giới thiệu
+# Lối chơi
+# Component
+# Công nghệ sử dụng
+- Lớp game
+- Data
+# Thiết kế OOP
