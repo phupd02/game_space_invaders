@@ -46,6 +46,26 @@ class Ship:
     def get_height(self):
         return self.ship_img.get_height()
 
+# Laser Class
+class Laser:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
+        self.mask = pygame.mask.from_surface(self.img)
+
+    def draw(self, window):
+        window.blit(self.img, (self.x, self.y))
+
+    def move(self, vel):
+        self.y += vel
+
+    def off_screen(self, height):
+        return self.y <= height and self.y >= 0
+    
+    def collision(self, obj):
+        return collide(obj, self)
+
 #Ship class
 class Player(Ship): # Ke thua
     def __init__(self, x, y, health = 100):
@@ -56,6 +76,24 @@ class Player(Ship): # Ke thua
         self.max_health = health
 
 
+#Enemy Class
+class Enemy(Ship):
+    COLOR_MAP = {
+                "red": (RED_SPACE_SHIP, RED_LASER),
+                "green": (GREEN_SPACE_SHIP, GREEN_LASER),
+                "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
+                }
+
+    def __init__(self, x, y, color, health = 100): 
+        super().__init__(x, y, health)
+        self.ship_img,self.laser_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.ship_img)
+    
+    def move(self, vel):
+        self.y += vel
+
+def collide(obj1, obj2):
+    pass
 
 def main():
     run = True
@@ -63,11 +101,21 @@ def main():
     level = 1
     lives = 5 # mạng
     main_font = pygame.font.SysFont("comicsans", 50)
-    
+    lost_font = pygame.font.SysFont("comicsans", 60)
+
+    # di chuyen enemies, sinh vin tri ngau nhien 
+    enemies = []
+    wave_length = 5
+    enemy_vel = 5
+
     player_vel = 5
+
     player = Player(300, 400)
 
     clock = pygame.time.Clock()
+
+    lost = False
+    lost_count = 0
 
     def redraw_window():
         WIN.blit(BG,(0,0))
@@ -78,14 +126,40 @@ def main():
         WIN.blit(lives_label,(10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10,10))
         
+        # Phan nay ve cac component ra man hinh
+        for enemy in enemies:
+            enemy.draw(WIN)
+        # Ve player
         player.draw(WIN)
-        
+        if lost:
+            lost_label = lost_font.render("You Lost!!", 1, (255, 255, 255))
+            WIN.blit(lost_label, (WIDTH / 2 - lost_label.get_width()/2, 300))
+
+            
         pygame.display.update()
 
     #game loop
     while run:
         clock.tick(FPS)
         redraw_window()
+
+        # Khi nao thi thua
+        if lives <= 0 or player.health <= 0:
+            lost = True
+            lost_count += 1
+
+        if lost:
+            if lost_count > FPS * 3:
+                run = False
+            else:
+                continue
+        # Neu so luong ke thu = 0, tang level
+        if len(enemies) == 0:
+            level += 1
+            wave_length += 5 # tang so luong ke thu len 5
+            for i in range(wave_length):
+                enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500 , -100), random.choice(["red","blue","green"])) # sinh ke thu o cac vi tri am
+                enemies.append(enemy)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -101,8 +175,15 @@ def main():
             player.y -= player_vel
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT: # down
             player.y += player_vel
+        
+        for enemy in enemies[:]:
+            enemy.move(enemy_vel)
+            if enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
+                enemies.remove(enemy)
+        redraw_window()
 main()
-# Da xem den class enemy - phut 53p28
+# Tiep tuc hoan thien ham collide o dong 95
 
 
 
