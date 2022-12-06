@@ -1,8 +1,11 @@
-from game_space_invaders.game.Laser import Laser
+import pygame
+import laser
+from pygame import mixer
 
 class Ship:
     COOLDOWN = 30
     WIDTH, HEIGHT = 650, 550 # kích cỡ của sổ
+    # LINK_MUSIC_SHOOT = "./data/bullet.wav" 
     '''
     Lớp Ship chính là lớp cơ sở
     - Player và Enemy đều kế thừa từ lớp này
@@ -22,6 +25,7 @@ class Ship:
         self.laser_img = None
         self.lasers = []
         self.cool_down_counter = 0
+        # self.music_shoot = pygame.mixer.music.load(self.LINK_MUSIC_SHOOT)
 
 
     # Function
@@ -31,16 +35,21 @@ class Ship:
         for laser in self.lasers:
             laser.draw(window)
 
+    # # Âm thanh bắn
+    # def music_shoot(self, url):
+    #     bulletSound = mixer.Sound(url)
+    #     bulletSound.play()
+
     # Di chuyển các viên đạn
     def move_lasers(self, vel, obj):
         self.cooldown()
-        for laser in self.lasers:
-            laser.move(vel)
-            if laser.off_screen(self.HEIGHT):
-                self.lasers.remove(laser)
-            elif laser.collision(obj):
+        for laser1 in self.lasers:
+            laser1.move(vel)
+            if laser1.off_screen(self.HEIGHT):
+                self.lasers.remove(laser1)
+            elif laser1.collide(obj):
                 obj.health -= 10
-                self.lasers.remove(laser)
+                self.lasers.remove(laser1)
 
     # get width của con tàu
     def get_width(self):
@@ -59,8 +68,9 @@ class Ship:
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x,self.y,self.laser_img)
-            self.lasers.append(laser)
+            laser1 = laser.Laser(self.x,self.y,self.laser_img)
+            # self.music_shoot(self.LINK_MUSIC_SHOOT)
+            self.lasers.append(laser1)
             self.cool_down_counter = 1
 
     # check_va cham

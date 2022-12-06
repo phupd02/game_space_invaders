@@ -1,9 +1,10 @@
+
 import pygame
 import os
 import time
 import random
-from game_space_invaders.game.Player import Player
-from game_space_invaders.game.Player import Enemy
+from player import *
+from enemy import *
 # Initialize font
 pygame.font.init()
 pygame.init()
@@ -38,12 +39,12 @@ def main():
     wave_length = 0
 
     # Tốc độ di chuyển của enemy, laser, player
-    enemy_vel = 2
-    laser_vel = 5
+    enemy_vel = 1
+    laser_vel = 6 
     player_vel = 5
 
     # Tạo một player
-    player = Player(300, 500)
+    player1 = Player(300, 500)
 
     clock = pygame.time.Clock()
 
@@ -60,7 +61,7 @@ def main():
         for enemy in enemies:
             enemy.draw(WIN)
         
-        player.draw(WIN)
+        player1.draw(WIN)
 
         if lost:
             lost_label = lost_font.render("Game over", 1, (255,255,255))
@@ -74,7 +75,7 @@ def main():
         clock.tick(FPS)
         redraw_window()
 
-        if lives <= 0 or player.health <= 0:
+        if lives <= 0 or player1.health <= 0:
             lost = True
             lost_count += 1
         
@@ -88,8 +89,8 @@ def main():
             level += 1
             wave_length += 5
             for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
-                enemies.append(enemy)
+                enemy1 = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
+                enemies.append(enemy1)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,33 +99,33 @@ def main():
 
         # control board
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and player.x - player_vel > 0: # move left
-            player.x -= player_vel
-        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # move right
-            player.x += player_vel
-        if keys[pygame.K_w] and player.y - player_vel > 0: # up
-            player.y -= player_vel
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 20 < HEIGHT: # down
-            player.y += player_vel
+        if keys[pygame.K_a] and player1.x - player_vel > 0: # move left
+            player1.x -= player_vel
+        if keys[pygame.K_d] and player1.x + player_vel + player1.get_width() < WIDTH: # move right
+            player1.x += player_vel
+        if keys[pygame.K_w] and player1.y - player_vel > 0: # up
+            player1.y -= player_vel
+        if keys[pygame.K_s] and player1.y + player_vel + player1.get_height() + 20 < HEIGHT: # down
+            player1.y += player_vel
         if keys[pygame.K_SPACE]:
-            player.shoot()
+            player1.shoot()
 
 
-        for enemy in enemies[:]:
-            enemy.move(enemy_vel)
-            enemy.move_lasers(laser_vel, player)
+        for enemy1 in enemies[:]:
+            enemy1.move(enemy_vel)
+            enemy1.move_lasers(laser_vel, player1)
 
             if random.randrange(0, 2*60) == 1:
-                enemy.shoot()
+                enemy1.shoot()
 
-            if enemy.collide(player):
-                player.health -= 10
-                enemies.remove(enemy)
-            elif enemy.y + enemy.get_height() > HEIGHT:
+            if enemy1.collide(player1):
+                player1.health -= 10
+                enemies.remove(enemy1)
+            elif enemy1.y + enemy1.get_height() > HEIGHT:
                 lives -= 1
-                enemies.remove(enemy)
+                enemies.remove(enemy1)
 
-        player.move_lasers(-laser_vel, enemies)
+        player1.move_lasers(-laser_vel, enemies)
 
 # main_menu
 def main_menu():

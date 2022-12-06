@@ -1,8 +1,8 @@
 import pygame
-from game_space_invaders.game.Ship import Ship
+import ship
 import os
 
-class Player(Ship):
+class Player(ship.Ship):
     WIDTH, HEIGHT = 650, 550
     LINK_PLAYER_IMG = os.path.join("data","spaceship.png")
     LINK_LASER_IMG = os.path.join("data","laser.png")
@@ -17,16 +17,16 @@ class Player(Ship):
 
     def move_lasers(self, vel, objs):
         self.cooldown()
-        for laser in self.lasers:
-            laser.move(vel)
-            if laser.off_screen(self.HEIGHT):
-                self.lasers.remove(laser)
+        for laser1 in self.lasers:
+            laser1.move(vel)
+            if laser1.off_screen(self.HEIGHT):
+                self.lasers.remove(laser1)
             else:
                 for obj in objs:
-                    if laser.collision(obj):
+                    if laser1.collide(obj):
                         objs.remove(obj)
-                        if laser in self.lasers:
-                            self.lasers.remove(laser)
+                        if laser1 in self.lasers:
+                            self.lasers.remove(laser1)
 
     def healthbar(self,window):
         pygame.draw.rect(window, (255,0,0), (self.x,self.y+self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))

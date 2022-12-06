@@ -1,8 +1,8 @@
-from game_space_invaders.game.Ship import Ship
-from game_space_invaders.game.Laser import Laser
+import ship
+import laser
 import pygame
 import os
-class Enemy(Ship):
+class Enemy(ship.Ship):
     # Tàu của enemy
     RED_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
     GREEN_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
@@ -30,6 +30,6 @@ class Enemy(Ship):
 
     def shoot(self):
         if self.cool_down_counter == 0:
-            laser = Laser(self.x-20,self.y,self.laser_img)
-            self.lasers.append(laser)
+            laser1 = laser.Laser(self.x-20,self.y,self.laser_img)
+            self.lasers.append(laser1)
             self.cool_down_counter = 1
