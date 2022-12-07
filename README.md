@@ -1,6 +1,10 @@
 # Giới thiệu
 # Lối chơi
+- Lấy ý tưởng từ bắn gà + space invaders
 # Component
+- Player
+- Enemy
+- Laser
 # Công nghệ, kiến thức sử dụng
 - Pygame, thiết kế OOP
 # Thiết kế OOP
