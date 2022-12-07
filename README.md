@@ -12,6 +12,7 @@
 - Lớp Enemy + Player kế thừa từ lớp Ship (do có mối quan hệ IS - A)
 - Lớp Laser
 - Lớp Main
+- package data - chứa hình ảnh, âm thanh để import vào game
 # Việc cần làm
 - Tạo menu cho game
 - Thêm phần âm thanh bắn và nhạc nền (background music)
