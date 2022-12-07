@@ -15,4 +15,6 @@
 - Phát triển 2 màn chơi, mỗi màn chơi có 1 map(background) khác nhau
 - Khi đạt 1 số điểm nhất định sẽ đổi đạn
 # References
+
 * Xử lý va cham với pygame: https://codelearn.io/sharing/xu-ly-va-cham-trong-game-voi-pygame
+* Hướng dẫn làm game space invader:  https://www.youtube.com/watch?v=Q-__8Xw9KTM - Tech with Tim
