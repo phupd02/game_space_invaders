@@ -2,6 +2,7 @@ import ship
 import laser
 import pygame
 import os
+
 class Enemy(ship.Ship):
     # Tàu của enemy
     RED_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
@@ -20,6 +21,7 @@ class Enemy(ship.Ship):
         "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
     }
 
+    # Constructor
     def __init__(self,x,y,color,health=100):
         super().__init__(x,y,health)
         self.ship_img, self.laser_img = self.COLOR_MAP[color]
@@ -33,3 +35,9 @@ class Enemy(ship.Ship):
             laser1 = laser.Laser(self.x-20,self.y,self.laser_img)
             self.lasers.append(laser1)
             self.cool_down_counter = 1
+
+    # # # Kiểm tra xem có va chạm với player hay ko
+    # def collide_player(self, obj):
+    #     if super().collide(obj) and isinstance(obj, Player):
+    #         return True
+    #     return False

@@ -1,6 +1,7 @@
 import pygame
 import ship
 import os
+from enemy import *
 
 class Player(ship.Ship):
     WIDTH, HEIGHT = 650, 550
@@ -14,6 +15,7 @@ class Player(ship.Ship):
         self.laser_img = pygame.image.load(self.LINK_LASER_IMG)
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
+        self.scores = 0
 
     def move_lasers(self, vel, objs):
         self.cooldown()
@@ -23,8 +25,10 @@ class Player(ship.Ship):
                 self.lasers.remove(laser1)
             else:
                 for obj in objs:
+                    # Nếu va chạm với 1 vật thể bất kỳ ()
                     if laser1.collide(obj):
                         objs.remove(obj)
+                        self.scores += 1
                         if laser1 in self.lasers:
                             self.lasers.remove(laser1)
 
@@ -35,3 +39,12 @@ class Player(ship.Ship):
     def draw(self, window):
         super().draw(window)
         self.healthbar(window)
+
+    # # kiểm tra xem có va chạm với laser
+    # def collide_laser(self, obj):
+    #     if super().collide(obj) and isinstance(obj, Laser):
+    #         return True
+    #     return False
+    
+        
+    
