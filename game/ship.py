@@ -21,7 +21,7 @@ class Ship:
         self.y = y
         self.health = health
         self.ship_img = None
-        self.laser_img = None
+        # self.laser_img = None
         self.lasers = []
         self.cool_down_counter = 0
         # self.music_shoot = pygame.mixer.music.load(self.LINK_MUSIC_SHOOT)
@@ -59,9 +59,11 @@ class Ship:
         elif self.cool_down_counter > 0:
             self.cool_down_counter += 1
 
-    def shoot(self):
+    def shoot(self, link_laser):
         if self.cool_down_counter == 0:
-            laser1 = laser.Laser(self.x,self.y,self.laser_img)
+            laser_img = pygame.image.load(link_laser)
+            # laser1 = laser.Laser(self.x,self.y,self.laser_img)
+            laser1 = laser.Laser(self.x,self.y,laser_img)
             # self.music_shoot(self.LINK_MUSIC_SHOOT)
             self.lasers.append(laser1)
             self.cool_down_counter = 1

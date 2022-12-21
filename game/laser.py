@@ -1,4 +1,5 @@
 import pygame
+''' Để tạo 1 laser cần truyền vào: toạ độ và ảnh của laser'''
 class Laser:
     def __init__(self,x,y,img):
         self.x = x

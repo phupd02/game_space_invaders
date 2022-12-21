@@ -6,13 +6,14 @@ from enemy import *
 class Player(ship.Ship):
     WIDTH, HEIGHT = 650, 550
     LINK_PLAYER_IMG = os.path.join("data","spaceship.png")
-    LINK_LASER_IMG = os.path.join("data","laser.png")
+    # LINK_LASER_IMG1 = os.path.join("data","laser.png")
+    # LINK_LASER_IMG2 = os.path.join("data","laser_ver2.png")
 
 
     def __init__(self,x,y,health=100):
         super().__init__(x,y,health)
         self.ship_img = pygame.image.load(self.LINK_PLAYER_IMG)
-        self.laser_img = pygame.image.load(self.LINK_LASER_IMG)
+        # self.laser_img = pygame.image.load(self.LINK_LASER_IMG)
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
         self.scores = 0
