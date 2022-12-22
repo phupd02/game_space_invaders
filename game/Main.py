@@ -21,7 +21,7 @@ pygame.display.set_caption("Space Invaders - Project Python")
 
 # Background
 BG = pygame.transform.scale(pygame.image.load(os.path.join("data","background.png")), (WIDTH,HEIGHT))
-
+BG2 = pygame.transform.scale(pygame.image.load(os.path.join("data","background2.png")), (WIDTH,HEIGHT))
 # Âm thanh nền
 pygame.mixer.music.load(os.path.join("data", "background.wav"))
 pygame.mixer.music.play(-1)
@@ -61,8 +61,10 @@ def main():
 
     # SUBFUNCTION 1: VẼ LẠI CỬA SỔ
     def show_parameter(): # parameter bao gồm: điểm (scores), mạng (lives), cấp độ (level)
-        WIN.blit(BG, (0,0))
-
+        if scores > 25:
+            WIN.blit(BG2, (0,0))
+        else:
+            WIN.blit(BG, (0,0))
         # color
         WHITE = 255, 255, 255
 
@@ -143,10 +145,9 @@ def main():
             player1.y -= player_vel 
         if keys[pygame.K_s] and player1.y + player_vel + player1.get_height() + 20 < HEIGHT: # down
             player1.y += player_vel
-        if keys[pygame.K_SPACE]: 
-
+        if keys[pygame.K_SPACE]: # shoot
             # Thay đổi đạn, cứ bắn 5 mục tiêu(scores tăng lên 5) thì đổi đạn 1 lần
-            level_laser = scores // 5
+            level_laser = scores // 10
             if level_laser % 2 == 0:
                 player1.shoot(LINK_LASER_IMG1)
             else:
@@ -154,7 +155,7 @@ def main():
             pygame.mixer.music.load(os.path.join("data", "bullet.wav"))
             pygame.mixer.music.play()
     
-        # Tạo ra các làn sóng tấn công
+        # Tạo ra các làn sóng tấn công, mối làn sóng có 5 enemy
         if len(enemies) == 0:
             level += 1
             wave_length += 5

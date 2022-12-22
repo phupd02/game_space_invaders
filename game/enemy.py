@@ -5,9 +5,9 @@ import os
 
 class Enemy(ship.Ship):
     # Tàu của enemy
-    RED_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
-    GREEN_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
-    BLUE_SPACE_SHIP = pygame.image.load(os.path.join("data","spaceship.png"))
+    RED_SPACE_SHIP = pygame.image.load(os.path.join("data","shape1.png"))
+    GREEN_SPACE_SHIP = pygame.image.load(os.path.join("data","shape2.png"))
+    BLUE_SPACE_SHIP = pygame.image.load(os.path.join("data","shape3.png"))
 
     # Đạn tuong ung voi moi con tau
     RED_LASER = pygame.image.load(os.path.join("data","laser.png"))
