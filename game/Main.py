@@ -61,7 +61,7 @@ def main():
 
     # SUBFUNCTION 1: VẼ LẠI CỬA SỔ
     def show_parameter(): # parameter bao gồm: điểm (scores), mạng (lives), cấp độ (level)
-        if scores > 25:
+        if scores > 15:
             WIN.blit(BG2, (0,0))
         else:
             WIN.blit(BG, (0,0))
