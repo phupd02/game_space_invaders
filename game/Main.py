@@ -11,7 +11,7 @@ pygame.init()
 
 # thay đổi laser
 LINK_LASER_IMG1 = os.path.join("data","laser_ver1.png")
-LINK_LASER_IMG2 = os.path.join("data","laser_ver3.png")
+LINK_LASER_IMG2 = os.path.join("data","laser_ver2.png")
 
 # Window
 WIDTH, HEIGHT = 800, 550 
