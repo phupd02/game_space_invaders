@@ -4,16 +4,13 @@ import os
 from enemy import *
 
 class Player(ship.Ship):
-    WIDTH, HEIGHT = 650, 550
-    LINK_PLAYER_IMG = os.path.join("data","spaceship.png")
-    # LINK_LASER_IMG1 = os.path.join("data","laser.png")
-    # LINK_LASER_IMG2 = os.path.join("data","laser_ver2.png")
+    WIDTH, HEIGHT = 800, 550
+    LINK_PLAYER_IMG = os.path.join("data","player.png")
 
 
     def __init__(self,x,y,health=100):
         super().__init__(x,y,health)
-        self.ship_img = pygame.image.load(self.LINK_PLAYER_IMG)
-        # self.laser_img = pygame.image.load(self.LINK_LASER_IMG)
+        self.ship_img = pygame.transform.scale(pygame.image.load(self.LINK_PLAYER_IMG), (160, 110))
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
         self.scores = 0
@@ -41,11 +38,8 @@ class Player(ship.Ship):
         super().draw(window)
         self.healthbar(window)
 
-    # # kiểm tra xem có va chạm với laser
-    # def collide_laser(self, obj):
-    #     if super().collide(obj) and isinstance(obj, Laser):
-    #         return True
-    #     return False
+
+
     
         
     

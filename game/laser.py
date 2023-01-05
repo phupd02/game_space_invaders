@@ -2,8 +2,8 @@ import pygame
 ''' Để tạo 1 laser cần truyền vào: toạ độ và ảnh của laser'''
 class Laser:
     def __init__(self,x,y,img):
-        self.x = x
-        self.y = y
+        self.x = x + 65
+        self.y = y + 80
         self.img = img
         self.mask = pygame.mask.from_surface(self.img)
 

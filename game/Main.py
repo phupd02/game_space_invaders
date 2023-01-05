@@ -4,23 +4,22 @@ import time
 import random
 from player import *
 from enemy import *
-from button import *
 
 # Initialize font
 pygame.font.init()
 pygame.init()
 
 # thay đổi laser
-LINK_LASER_IMG1 = os.path.join("data","laser.png")
-LINK_LASER_IMG2 = os.path.join("data","laser_ver2.png")
+LINK_LASER_IMG1 = os.path.join("data","laser_ver1.png")
+LINK_LASER_IMG2 = os.path.join("data","laser_ver3.png")
 
 # Window
-WIDTH, HEIGHT = 650, 550 
+WIDTH, HEIGHT = 800, 550 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Invaders - Project Python")
 
 # Background
-BG = pygame.transform.scale(pygame.image.load(os.path.join("data","background.png")), (WIDTH,HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("data","background1.png")), (WIDTH,HEIGHT))
 BG2 = pygame.transform.scale(pygame.image.load(os.path.join("data","background2.png")), (WIDTH,HEIGHT))
 # Âm thanh nền
 pygame.mixer.music.load(os.path.join("data", "background.wav"))
@@ -56,7 +55,7 @@ def main():
     player_vel = 5
 
     # Tạo một player
-    player1 = Player(400, 450)
+    player1 = Player(450, 400)
     clock = pygame.time.Clock()
 
     # SUBFUNCTION 1: VẼ LẠI CỬA SỔ
@@ -76,7 +75,7 @@ def main():
         # Draw parameter on the screen
         WIN.blit(lives_label, (10,10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10,10))
-        WIN.blit(score_label, ((WIDTH - level_label.get_width())/2 - 20,10))
+        WIN.blit(score_label, ((WIDTH - level_label.get_width())/2,10))
 
         # Draw enemies on the screen
         for enemy in enemies:
@@ -86,6 +85,7 @@ def main():
         # If lose, draw "Game over"
         if lost:
             lost_label = lost_font.render("Game over", 1, (255,255,255))
+            
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
         
     # Pause the game
@@ -124,7 +124,7 @@ def main():
                     stop = True
                     pause(stop)
 
-        # Thay đổi lives, lost nếu có
+        # Thua cuộc
         if lives <= 0 or player1.health <= 0:
             lost = True
             lost_count += 1
@@ -160,7 +160,7 @@ def main():
             level += 1
             wave_length += 5
             for i in range(wave_length):
-                enemy1 = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1000, -100), random.choice(["red", "blue", "green"]))
+                enemy1 = Enemy(random.randrange(50, WIDTH-280), random.randrange(-1000, -100), random.choice(["red", "blue", "green"]))
                 enemies.append(enemy1)
 
         # enemy di chuyển, bắn laser
@@ -195,7 +195,7 @@ def main_menu():
         WIN.blit(BG, (0,0))
 
         title_label = title_font.render("Press the mause to begin...", 1, (255,255,255))
-        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 250))
         pygame.display.update()
 
         for event in pygame.event.get():

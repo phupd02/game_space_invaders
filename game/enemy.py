@@ -5,20 +5,19 @@ import os
 
 class Enemy(ship.Ship):
     # Tàu của enemy
-    RED_SPACE_SHIP = pygame.image.load(os.path.join("data","shape1.png"))
-    GREEN_SPACE_SHIP = pygame.image.load(os.path.join("data","shape2.png"))
-    BLUE_SPACE_SHIP = pygame.image.load(os.path.join("data","shape3.png"))
+    RED_SPACE_SHIP_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","red_enemy.png")), (140, 88))
+    GREEN_SPACE_SHIP_IMG = pygame.transform.scale( pygame.image.load(os.path.join("data","green_enemy.png")), (140, 80))
+    BLUE_SPACE_SHIP_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","blue_enemy.png")), (140, 60))
 
     # Đạn tuong ung voi moi con tau
-    RED_LASER = pygame.image.load(os.path.join("data","laser.png"))
-    GREEN_LASER = pygame.image.load(os.path.join("data","laser.png"))
-    BLUE_LASER = pygame.image.load(os.path.join("data","laser.png"))
-
+    RED_LASER_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","red_laser.png")), (30, 30))
+    GREEN_LASER_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","green_laser.png")), (30, 30))
+    BLUE_LASER_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","blue_laser.png")), (30, 30))
     # Tu dien, ta se sinh cac con tau có màu ngẫu nhiên kèm theo đạn tuong ứng
     COLOR_MAP = {
-        "red": (RED_SPACE_SHIP, RED_LASER),
-        "green": (GREEN_SPACE_SHIP, GREEN_LASER),
-        "blue": (BLUE_SPACE_SHIP, BLUE_LASER)
+        "red": (RED_SPACE_SHIP_IMG, RED_LASER_IMG),
+        "green": (GREEN_SPACE_SHIP_IMG, GREEN_LASER_IMG),
+        "blue": (BLUE_SPACE_SHIP_IMG, BLUE_LASER_IMG)
     }
 
     # Constructor
@@ -36,8 +35,3 @@ class Enemy(ship.Ship):
             self.lasers.append(laser1)
             self.cool_down_counter = 1
 
-    # # # Kiểm tra xem có va chạm với player hay ko
-    # def collide_player(self, obj):
-    #     if super().collide(obj) and isinstance(obj, Player):
-    #         return True
-    #     return False

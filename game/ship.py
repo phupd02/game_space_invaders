@@ -3,8 +3,7 @@ import laser
 from pygame import mixer
 class Ship:
     COOLDOWN = 30
-    WIDTH, HEIGHT = 650, 550 # kích cỡ của sổ
-    # LINK_MUSIC_SHOOT = "./data/bullet.wav" 
+    WIDTH, HEIGHT = 800, 550 # kích cỡ của sổ
     '''
     Lớp Ship chính là lớp cơ sở
     - Player và Enemy đều kế thừa từ lớp này
@@ -61,7 +60,7 @@ class Ship:
 
     def shoot(self, link_laser):
         if self.cool_down_counter == 0:
-            laser_img = pygame.image.load(link_laser)
+            laser_img = pygame.transform.scale(pygame.image.load(link_laser), (40, 60))
             # laser1 = laser.Laser(self.x,self.y,self.laser_img)
             laser1 = laser.Laser(self.x,self.y,laser_img)
             # self.music_shoot(self.LINK_MUSIC_SHOOT)
