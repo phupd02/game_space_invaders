@@ -13,12 +13,12 @@ class Laser:
     def move(self, vel):
         self.y += vel
 
-    def off_screen(self, height):
-        return not(self.y < height and self.y >= 0)
+    def over_height(self, height):
+        return (self.y > height or self.y <= 0)
 
     # check_va cham
-    def collide(self,obj):
-        offset_x = self.x - obj.x
-        offset_y = self.y - obj.y
-        return self.mask.overlap(obj.mask, (offset_x,offset_y)) != None
+    def check_collisions(self,obj):
+        offset = (int(self.x - obj.x), int(self.y - obj.y))
+        return self.mask.overlap(obj.mask, offset) != None
+
     

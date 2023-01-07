@@ -1,7 +1,7 @@
 import pygame
 import os
 import time
-import random
+from enemies import Enemies
 from player import *
 from enemy import *
 
@@ -21,6 +21,7 @@ pygame.display.set_caption("Space Invaders - Project Python")
 # Background
 BG = pygame.transform.scale(pygame.image.load(os.path.join("data","background1.png")), (WIDTH,HEIGHT))
 BG2 = pygame.transform.scale(pygame.image.load(os.path.join("data","background2.png")), (WIDTH,HEIGHT))
+
 # Âm thanh nền
 pygame.mixer.music.load(os.path.join("data", "background.wav"))
 pygame.mixer.music.play(-1)
@@ -31,6 +32,15 @@ def main():
     run = True
     pause = False
     FPS = 60
+
+    # Tạo một player
+    player1 = Player(450, 400)
+    
+    # Đoi tuong Enemies
+    enemies1 = Enemies(0, 5)
+
+     # list enemy
+    enemies = enemies1.enemies
 
     # Level, Mạng sống
     level = 0
@@ -45,20 +55,9 @@ def main():
     main_font = pygame.font.SysFont("comicsans", 40)
     lost_font = pygame.font.SysFont("comicsans", 60)
 
-    # Mảng chứa các enemy
-    enemies = []
-    wave_length = 0
-
-    # Tốc độ di chuyển của enemy, laser, player
-    enemy_vel = 1
-    laser_vel = 6 
-    player_vel = 5
-
-    # Tạo một player
-    player1 = Player(450, 400)
     clock = pygame.time.Clock()
 
-    # SUBFUNCTION 1: VẼ LẠI CỬA SỔ
+    # SUBFUNCTION 2: VẼ LẠI CỬA SỔ
     def show_parameter(): # parameter bao gồm: điểm (scores), mạng (lives), cấp độ (level)
         if scores >= 10:
             WIN.blit(BG2, (0,0))
@@ -68,14 +67,14 @@ def main():
         WHITE = 255, 255, 255
 
         # Draw text
-        level_label = main_font.render(f"Level: {level}", 1, WHITE)
-        lives_label = main_font.render(f"Lives: {lives}", 1, WHITE)
+        level_label = main_font.render(f"Level: {enemies1.level}", 1, WHITE)
+        lives_label = main_font.render(f"Lives: {enemies1.lives}", 1, WHITE)
         score_label = main_font.render(f"Score: {scores}", 1, WHITE)
 
         # Draw parameter on the screen
-        WIN.blit(lives_label, (10,10))
-        WIN.blit(level_label, (WIDTH - level_label.get_width() - 10,10))
         WIN.blit(score_label, ((WIDTH - level_label.get_width())/2,10))
+        WIN.blit(level_label, (WIDTH - level_label.get_width() - 10,10))
+        WIN.blit(lives_label, (10,10))
 
         # Draw enemies on the screen
         for enemy in enemies:
@@ -86,9 +85,10 @@ def main():
         if lost:
             lost_label = lost_font.render("Game over", 1, (255,255,255))
             
-            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 250))
+            pygame.display.update()
         
-    # Pause the game
+    # SUBFUCNTION: Pause the game
     def pause(stop):
         pause_font = pygame.font.SysFont("comicsans", 60)
         text_surface = pause_font.render("Paused", True, BLACK)
@@ -107,7 +107,7 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
                         stop = False
-
+        
     # game loop
     while run:
         start_time = time.time()
@@ -125,7 +125,7 @@ def main():
                     pause(stop)
 
         # Thua cuộc
-        if lives <= 0 or player1.health <= 0:
+        if lives <= 0 or player1. health <= 0:
             lost = True
             lost_count += 1
         
@@ -137,54 +137,35 @@ def main():
 
         # control board
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and player1.x - player_vel > 0: # move left
-            player1.x -= player_vel
-        if keys[pygame.K_d] and player1.x + player_vel + player1.get_width() < WIDTH: # move right
-            player1.x += player_vel
-        if keys[pygame.K_w] and player1.y - player_vel > 0: # up
-            player1.y -= player_vel 
-        if keys[pygame.K_s] and player1.y + player_vel + player1.get_height() + 20 < HEIGHT: # down
-            player1.y += player_vel
+        if keys[pygame.K_a] and player1.x - player1.player_vel > 0: # move left
+            player1.x -= player1.player_vel
+        if keys[pygame.K_d] and player1.x + player1.player_vel + player1.get_width() < WIDTH: # move right
+            player1.x += player1.player_vel
+        if keys[pygame.K_w] and player1.y - player1.player_vel > 0: # up
+            player1.y -= player1.player_vel 
+        if keys[pygame.K_s] and player1.y + player1.player_vel + player1.get_height() + 20 < HEIGHT: # down
+            player1.y += player1.player_vel
         if keys[pygame.K_SPACE]: # shoot
-            # Thay đổi đạn, cứ bắn 5 mục tiêu(scores tăng lên 5) thì đổi đạn 1 lần
+            
             level_laser = scores // 10
             if level_laser % 2 == 0:
-                player1.shoot(LINK_LASER_IMG1)
+                player1.shoot_laser(LINK_LASER_IMG1)
             else:
-                player1.shoot(LINK_LASER_IMG2)
+                player1.shoot_laser(LINK_LASER_IMG2)
+        
+            # Âm thanh khi bắn
             pygame.mixer.music.load(os.path.join("data", "bullet.wav"))
             pygame.mixer.music.play()
-    
-        # Tạo ra các làn sóng tấn công, mối làn sóng có 5 enemy
-        if len(enemies) == 0:
-            level += 1
-            wave_length += 5
-            for i in range(wave_length):
-                enemy1 = Enemy(random.randrange(50, WIDTH-280), random.randrange(-1000, -100), random.choice(["red", "blue", "green"]))
-                enemies.append(enemy1)
-
-        # enemy di chuyển, bắn laser
-        for enemy1 in enemies[:]:
-            enemy1.move(enemy_vel)
-            enemy1.move_lasers(laser_vel, player1)
-
-            # enemy sinh ra ở các vị trí ngẫu nhiên
-            if random.randrange(0, 2*30) == 1:
-                enemy1.shoot()
-
-            # nếu có va cham giữa player và enemy 
-            if enemy1.collide(player1):
-                player1.health -= 10
-                enemies.remove(enemy1)
-            
-            elif enemy1.y + enemy1.get_height() > HEIGHT:
-                lives -= 1
-                enemies.remove(enemy1)
+           
+        enemies1.create_level()
+        enemies1.attack(player1)
 
         # Update điểm số
         scores = player1.scores
+        level = enemies1.level
+        lives = enemies1.lives
         
-        player1.move_lasers(-laser_vel, enemies)
+        player1.move_lasers(-player1.laser_vel, enemies)
         pygame.display.update()
 
 # main_menu
