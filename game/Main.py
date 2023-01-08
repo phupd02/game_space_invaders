@@ -1,7 +1,7 @@
 import pygame
 import os
 import time
-from enemies import Enemies
+from level import *
 from player import *
 from enemy import *
 
@@ -37,7 +37,7 @@ def main():
     player1 = Player(450, 400)
     
     # Đoi tuong Enemies
-    enemies1 = Enemies(0, 5)
+    enemies1 = Level(0, 5)
 
      # list enemy
     enemies = enemies1.enemies
@@ -63,6 +63,7 @@ def main():
             WIN.blit(BG2, (0,0))
         else:
             WIN.blit(BG, (0,0))
+            
         # color
         WHITE = 255, 255, 255
 
@@ -147,8 +148,9 @@ def main():
             player1.y += player1.player_vel
         if keys[pygame.K_SPACE]: # shoot
             
-            level_laser = scores // 10
-            if level_laser % 2 == 0:
+            # Nâng cấp đạn người chơi theo level
+            rank_laser = scores // 10
+            if rank_laser % 2 == 0:
                 player1.shoot_laser(LINK_LASER_IMG1)
             else:
                 player1.shoot_laser(LINK_LASER_IMG2)
@@ -157,7 +159,7 @@ def main():
             pygame.mixer.music.load(os.path.join("data", "bullet.wav"))
             pygame.mixer.music.play()
            
-        enemies1.create_level()
+        enemies1.create_attack()
         enemies1.attack(player1)
 
         # Update điểm số

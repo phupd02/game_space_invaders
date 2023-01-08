@@ -1,9 +1,9 @@
 import pygame
-import ship
+from ufo import *
 import os
 from enemy import *
 
-class Player(ship.Ship):
+class Player(Ufo):
     WIDTH, HEIGHT = 800, 550
     LINK_PLAYER_IMG = os.path.join("data","player.png")
 

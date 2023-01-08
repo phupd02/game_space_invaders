@@ -1,11 +1,11 @@
 import random
-import ship
+from ufo import *
 import laser
 import pygame
 import os
 
 
-class Enemy(ship.Ship):
+class Enemy(Ufo):
 
     # Tàu của enemy
     FIRST_UFO_IMG = pygame.transform.scale(pygame.image.load(os.path.join("data","red_enemy.png")), (140, 88))

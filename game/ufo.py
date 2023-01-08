@@ -1,7 +1,7 @@
 import pygame
 import laser
 from pygame import mixer
-class Ship:
+class Ufo:
     COOLDOWN = 30
     WIDTH, HEIGHT = 800, 550 # kích cỡ của sổ
     '''
