@@ -18,7 +18,7 @@ _**Nhấn**_
 * S: Để di chuyển xuống
 * W: Để di chuyển lên
 * Space: Để bắn các mục tiêu
-* P: để tạm dừng trò chơi
+* P: Để tạm dừng trò chơi
 
 _**Luật chơi: Nhiệm vụ của người chơi là điều khiển tàu vũ trụ tiêu diệt các kẻ địch**_
 * Nếu bắn trúng mục tiêu, điểm sổ của người chơi sẽ tăng lên 1
