@@ -37,15 +37,18 @@ def main():
     player1 = Player(450, 400)
     
     # Đoi tuong Enemies
-    enemies1 = Level(0, 5)
+    levels = Level(0, 5)
 
      # list enemy
-    enemies = enemies1.enemies
+    enemies = levels.enemies
 
     # Level, Mạng sống
+    # level = 0
+    # lives = 5
+    # scores = 0
+    scores = 0
     level = 0
     lives = 5
-    scores = 0
 
     # Thua
     lost = False
@@ -68,8 +71,8 @@ def main():
         WHITE = 255, 255, 255
 
         # Draw text
-        level_label = main_font.render(f"Level: {enemies1.level}", 1, WHITE)
-        lives_label = main_font.render(f"Lives: {enemies1.lives}", 1, WHITE)
+        level_label = main_font.render(f"Level: {level}", 1, WHITE)
+        lives_label = main_font.render(f"Lives: {lives}", 1, WHITE)
         score_label = main_font.render(f"Score: {scores}", 1, WHITE)
 
         # Draw parameter on the screen
@@ -158,14 +161,14 @@ def main():
             # Âm thanh khi bắn
             pygame.mixer.music.load(os.path.join("data", "bullet.wav"))
             pygame.mixer.music.play()
-           
-        enemies1.create_attack()
-        enemies1.attack(player1)
+        
+        levels.create_attack()
+        levels.attack(player1)
 
         # Update điểm số
         scores = player1.scores
-        level = enemies1.level
-        lives = enemies1.lives
+        level = levels.level
+        lives = levels.lives
         
         player1.move_lasers(-player1.laser_vel, enemies)
         pygame.display.update()
@@ -188,7 +191,6 @@ def main_menu():
                 main()
 
     pygame.quit()
-    os.quit()
 
 # run game
 main_menu()

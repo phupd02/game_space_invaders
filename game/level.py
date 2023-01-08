@@ -26,12 +26,12 @@ class Level:
             elif self.level == 2: # Nếu leve == 2, có 10 kẻ địch
                 wave_length += 10
                 for i in range(wave_length):
-                    enemy1 = Enemy(random.randrange(50, Level.WIDTH-280), random.randrange(-500, -50), random.choice(["first_ufo", "second_ufo", "third_ufo"]))
+                    enemy1 = Enemy(random.randrange(50, Level.WIDTH-280), random.randrange(-700, -100), random.choice(["first_ufo", "second_ufo", "third_ufo"]))
                     Level.enemies.append(enemy1)
             else: # Nếu level >= 3, có 15 kẻ địch
                 wave_length += 15
                 for i in range(wave_length):
-                    enemy1 = Enemy(random.randrange(50, Level.WIDTH-280), random.randrange(-300, -20), random.choice(["first_ufo", "second_ufo", "third_ufo"]))
+                    enemy1 = Enemy(random.randrange(50, Level.WIDTH-280), random.randrange(-300, -50), random.choice(["first_ufo", "second_ufo", "third_ufo"]))
                     Level.enemies.append(enemy1)
             
     def attack(self, player1):
