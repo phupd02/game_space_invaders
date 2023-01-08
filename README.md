@@ -1,27 +1,17 @@
-# Giới thiệu
-# Lối chơi
-- Lấy ý tưởng từ bắn gà + space invaders
-# Component
-- Player
-- Enemy
-- Laser
-# Công nghệ, kiến thức sử dụng
-- Pygame, thiết kế OOP
-# Thiết kế OOP
-- Lớp Ship(base class)
-- Lớp Enemy + Player kế thừa từ lớp Ship (do có mối quan hệ IS - A)
-- Lớp Laser
-- Lớp Main
-- package data - chứa hình ảnh, âm thanh để import vào game
-# Việc cần làm
-- Tạo menu cho game
-- Thêm phần âm thanh bắn và nhạc nền (background music)
-# Một số ý tưởng
-- Phát triển 2 màn chơi, mỗi màn chơi có 1 map(background) khác nhau
-- Khi đạt 1 số điểm nhất định sẽ đổi đạn
-- Dừng khi đang chới game
-# References
-
-* Xử lý va cham với pygame: https://codelearn.io/sharing/xu-ly-va-cham-trong-game-voi-pygame
-* Hướng dẫn làm game space invader:  https://www.youtube.com/watch?v=Q-__8Xw9KTM - Tech with Tim
-
+# Hướng dẫn chơi và cài đặt
+## Cài đặt pygame 
+## Hướng dẫn chơi
+*Nhấn*
+Chuột trái: Để bắt đầu trò chơi
+A: Để di chuyển sang trái
+D: Để di chuyển sang phải
+S: Để di chuyển xuống
+W: Để di chuyển lên
+Space: Để bắn các mục tiêu địch
+P: để tạm dừng trò chơi
+*Luật chơi: Nhiệm vụ của người chơi là điều khiển tàu vũ trụ tiêu diệt các kẻ địch*
+- Nếu bắn trúng mục tiêu, điểm sổ của người chơi sẽ tăng lên 1
+- Người chơi sẽ được cung cấp 5 mạng sống, cứ một kẻ địch thoát được cuộc tấn công, mạng sống của người chơi sẽ bị giảm đi 1 mạng
+- Nếu bị kẻ địch bắn trúng hoặc va chạm với kẻ địch, thanh năng lượng của người chơi sẽ bị sụt giảm
+- Số lượng kẻ địch ở mỗi level được tăng theo cấp số cộng với công sai = 5, level 1 số lượng kẻ địch là 5, level 2 là 10, level 3 là 15….
+- Game over nếu người chơi không còn mạng sống hoặc mất hết năng lượng
