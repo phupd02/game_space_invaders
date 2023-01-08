@@ -9,6 +9,7 @@ _**Linux**_
 
 ### Bước 2:
 * Vào thư mục **game**, mở file **Main.py**, nhấn F5 hoặc Run trong IDE để thực hiện chạy chương trình
+<img src="https://imgur.com/aypyLpJ">
 
 ## 2. Hướng dẫn chơi
 _**Nhấn**_
